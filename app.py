@@ -16,7 +16,6 @@ avatars = {
     'assistant': f'assets/brain.png'
 }
 
-@st.cache_resource(show_spinner=False)
 def load_data():
     with st.spinner(text="Loading indexed documents..."):
         RemoteDepthReader = download_loader("RemoteDepthReader")
