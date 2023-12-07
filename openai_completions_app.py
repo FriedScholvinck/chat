@@ -3,11 +3,10 @@ import streamlit as st
 
 
 st.set_page_config(
-    page_title="Amsterdam Chatbot",
-    page_icon="❌",
+    page_title="Chatbot",
 )
 
-st.title("Amsterdam Chatbot")
+st.title("Chatbot")
 
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
@@ -16,11 +15,11 @@ if "openai_model" not in st.session_state:
 
 if "messages" not in st.session_state:
     st.session_state.messages = [
-        {"role": "assistant", "content": "Hello, I'm the Amsterdam Chatbot."}
+        {"role": "assistant", "content": "Hello, I'm a  smart chatbot."}
     ]
 
 for message in st.session_state.messages:
-    with st.chat_message(message["role"], avatar="❌"):
+    with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
 if prompt := st.chat_input("What is up?"):
@@ -28,7 +27,7 @@ if prompt := st.chat_input("What is up?"):
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    with st.chat_message("assistant", avatar="❌"):
+    with st.chat_message("assistant"):
         message_placeholder = st.empty()
         full_response = ""
         for response in client.chat.completions.create(
