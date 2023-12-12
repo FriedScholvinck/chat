@@ -9,6 +9,9 @@ import tldextract
 DEFAULT_URL = 'https://nos.nl/teletekst'
 
 st.set_page_config(page_title='Chat', page_icon=f'assets/brain.png', layout="centered", initial_sidebar_state="auto", menu_items=None)
+
+st.session_state.update(st.session_state)
+
 default_title = st.title(f'Website Chat')
 
 avatars = {
@@ -31,7 +34,7 @@ with st.sidebar:
     url = st.text_input('Enter a URL', DEFAULT_URL)
     parsed_url = tldextract.extract(url)
     name = parsed_url.domain
-    depth = st.radio('Depth', [0, 1, 2], horizontal=True, index=0)
+    depth = st.radio('Depth', [0, 1], horizontal=True, index=0)
 
     if "index" not in st.session_state:
         if st.button('Load website'):
