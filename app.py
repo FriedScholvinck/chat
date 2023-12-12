@@ -1,12 +1,11 @@
 import openai
 import streamlit as st
-from llama_index import (Document, ServiceContext, StorageContext,
-                         VectorStoreIndex, download_loader,
-                         load_index_from_storage)
-from llama_index.llms import OpenAI
+from llama_index import Document, ServiceContext, StorageContext, VectorStoreIndex, load_index_from_storage
+# from llama_index.llms import OpenAI
+from llama_hub.remote_depth import RemoteDepthReader
 import tldextract
 
-DEFAULT_URL = 'https://nos.nl/teletekst'
+DEFAULT_URL = 'https://www.xomnia.com'
 
 st.set_page_config(page_title='Chat', page_icon=f'assets/brain.png', layout="centered", initial_sidebar_state="auto", menu_items=None)
 
@@ -21,7 +20,7 @@ avatars = {
 
 def load_data():
     with st.spinner(text="Loading indexed documents..."):
-        RemoteDepthReader = download_loader("RemoteDepthReader")
+        # RemoteDepthReader = download_loader("RemoteDepthReader")
         loader = RemoteDepthReader(depth=depth, domain_lock=True)
         documents = loader.load_data(url=url)
         st.success(f'{len(documents)} documents loaded')
