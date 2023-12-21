@@ -4,16 +4,20 @@ import streamlit as st
 
 st.set_page_config(
     page_title="XomniaGPT",
+    page_icon="assets/xomnia_logo.png",
 )
 
 st.title("XomniaGPT")
 
+avatars = {
+    'user': 'assets/programmer.png',
+    'assistant': f'assets/brain.png'
+}
+
 try:
     client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 except:
-    st.error(
-        "Please add your OpenAI API key to secrets.toml. See [the documentation](https://docs.streamlit.io/en/stable/deploy_streamlit_app.html#secrets-management) for more information."
-    )
+    st.error("Please add your OpenAI API key to .streamlit/secrets.toml.")
     st.stop()
 
 if "openai_model" not in st.session_state:
@@ -25,7 +29,7 @@ if "messages" not in st.session_state:
     ]
 
 for message in st.session_state.messages:
-    with st.chat_message(message["role"], avatar="assets/brain.png"):
+    with st.chat_message(message["role"], avatar=avatars[message["role"]]):
         st.markdown(message["content"])
 
 if prompt := st.chat_input("What is up?"):
@@ -33,7 +37,7 @@ if prompt := st.chat_input("What is up?"):
     with st.chat_message("user", avatar="assets/programmer.png"):
         st.markdown(prompt)
 
-    with st.chat_message("assistant", avatar="assets/brain.png"):
+    with st.chat_message("assistant", avatar=avatars[message["role"]]):
         message_placeholder = st.empty()
         full_response = ""
         for response in client.chat.completions.create(
