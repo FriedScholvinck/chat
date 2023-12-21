@@ -8,7 +8,13 @@ st.set_page_config(
 
 st.title("XomniaGPT")
 
-client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+try:
+    client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+except:
+    st.error(
+        "Please add your OpenAI API key to secrets.toml. See [the documentation](https://docs.streamlit.io/en/stable/deploy_streamlit_app.html#secrets-management) for more information."
+    )
+    st.stop()
 
 if "openai_model" not in st.session_state:
     st.session_state["openai_model"] = "gpt-3.5-turbo"
