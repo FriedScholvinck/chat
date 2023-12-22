@@ -11,7 +11,7 @@ st.title("XomniaGPT")
 
 avatars = {
     'user': 'assets/programmer.png',
-    'assistant': f'assets/brain.png'
+    'assistant': f'assets/xomnia_logo.png'
 }
 
 try:
